@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {Loading} from "./components/Loading";
+import {useEffect, useState} from "react";
+import {useLocation} from "./hooks/useLocation";
+import {Weather as IWeather} from "./api/weather/contracts";
+import {getWeatherApi} from "./api/weather/weatherApi";
+import {Weather} from "./components/Weather";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [weather, setWeather] = useState<IWeather | null>(null);
+  const { longitude, latitude, loading } = useLocation()
+
+  useEffect(() => {
+    (async () => {
+      if (longitude && latitude) {
+        const weather: IWeather= await getWeatherApi(longitude, latitude)
+
+        setWeather(weather)
+      }
+    })()
+  }, [longitude, latitude])
+
+  if (loading || !weather) {
+    return <Loading/>
+  }
+
+  return weather ? <Weather temp={weather.main.temp} condition={weather.weather[0].main} country={weather.name}/> : null;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
