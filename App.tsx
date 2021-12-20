@@ -1,9 +1,9 @@
 import {Loading} from "./components/Loading";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation} from "./hooks/useLocation";
 import {Weather as IWeather} from "./api/weather/contracts";
 import {getWeatherApi} from "./api/weather/weatherApi";
-import {Weather} from "./components/Weather";
+import {Navigation} from "./navigation";
 
 export default function App() {
   const [weather, setWeather] = useState<IWeather | null>(null);
@@ -23,6 +23,6 @@ export default function App() {
     return <Loading/>
   }
 
-  return weather ? <Weather temp={weather.main.temp} condition={weather.weather[0].main} country={weather.name}/> : null;
+  return <Navigation longitude={longitude} latitude={latitude} temp={weather.main.temp} condition={weather.weather[0].main} country={weather.name}/>
 }
 

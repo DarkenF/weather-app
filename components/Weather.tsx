@@ -1,12 +1,11 @@
 import React, {FC} from 'react';
-import {View, Text, StyleSheet, StatusBar} from "react-native";
+import {View, Text, StyleSheet, StatusBar, SafeAreaView} from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {LinearGradient} from "expo-linear-gradient";
+import { RouteProp } from '@react-navigation/native';
 
 interface Props {
-  temp: number;
-  condition: string;
-  country: string;
+  route:  RouteProp<{ params: {  temp: number,   condition: string, country: string, } }, 'params'>
 }
 
 interface IWeather {
@@ -20,7 +19,7 @@ interface IWeatherInfo {
   subtitle: string
 }
 
-const weatherOptions: IWeather = {
+export const weatherOptions: IWeather = {
   Thunderstorm: {
     iconName: 'weather-lightning',
     gradient: ['#141E30', '#243B55'],
@@ -78,12 +77,13 @@ const weatherOptions: IWeather = {
   Clouds: {
     iconName: 'weather-cloudy',
     gradient: ['#757F9A', '#D7DDE8'],
-    title: 'Облака',
-    subtitle: 'Белогривые лошадки'
+    title: 'Облачно',
+    subtitle: 'Солнышка совсем не видать :('
   },
 }
 
-export const Weather: FC<Props> = ({temp, condition, country}) => {
+export const Weather: FC<Props> = ({route}) => {
+  const {temp, condition, country } = route.params
   const temperature = Math.round(temp)
 
   return(
@@ -94,7 +94,7 @@ export const Weather: FC<Props> = ({temp, condition, country}) => {
       <StatusBar barStyle="light-content"/>
       <View style={styles.halfContainer}>
         <MaterialCommunityIcons name={weatherOptions[condition].iconName} size={96} color="white"/>
-        <Text style={styles.temp}>Температруа: {temperature}°C</Text>
+        <Text style={styles.temp}>Температура: {temperature}°C</Text>
       </View>
       <View style={{...styles.halfContainer, ...styles.textContainer}} >
         <Text style={styles.countryText}>{country}</Text>

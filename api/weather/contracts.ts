@@ -21,7 +21,8 @@ interface Coordinate {
 
 interface Wind {
   speed: number,
-  deg: number
+  deg: number,
+  gust?: number,
 }
 
 interface SystemInfo {
@@ -51,3 +52,44 @@ export interface Weather {
   name: string,
   cod: number
 }
+
+export interface WeatherForecastItem {
+  dt: number,
+  main: {
+    temp: number,
+    feels_like: number,
+    temp_min: number,
+    temp_max: number,
+    pressure: number,
+    sea_level: number,
+    grnd_level: number,
+    humidity: number,
+    temp_kf: number
+  },
+  weather: WeatherDescription[],
+  clouds: Clouds,
+  wind: Wind,
+  visibility: number,
+  pop: number,
+  sys: {
+    pod: string
+  },
+  dt_txt: string
+}
+
+export interface WeatherForecast {
+  cod: string,
+  message: number,
+  cnt: number,
+  list: WeatherForecastItem[]
+  city: {
+    id: number,
+    name: string,
+    coord: Coordinate,
+    country: string,
+    timezone: number,
+    sunrise: number,
+    sunset: number
+  }
+}
+
