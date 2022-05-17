@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {View, StyleSheet, Text, StatusBar} from "react-native";
+import {View, StyleSheet, Text, StatusBar, ActivityIndicator} from "react-native";
 
 interface Props {
 
@@ -9,6 +9,7 @@ export const Loading: FC<Props> = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content"/>
+	    <ActivityIndicator size="large" />
       <Text style={styles.text}>Получение погоды...</Text>
     </View>
   );
@@ -17,10 +18,10 @@ export const Loading: FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     paddingHorizontal: 30,
     paddingVertical: 100,
-    backgroundColor: "#8fd0f8",
+    backgroundColor: "#ffffff",
   },
   text: {
     fontSize: 26,

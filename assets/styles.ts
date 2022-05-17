@@ -1,0 +1,17 @@
+export const Colors = {
+	red: '#FF5757',
+	bgColor: '#2B2B2B',
+	default: '#FFFFFF',
+	yellow: '#F8F135',
+	black: '#000000',
+	lightGray: '#434343',
+	placeholderTextColor: '#a1a1a1',
+	errorBorder: '#FC595B',
+	errorMessage: '#FF5757',
+	reportBg: 'rgba(255, 87, 87, .1)',
+	gray: '#a1a1a1',
+	blue: '#0b68c7',
+	PRIMARY_COLOR: '#ff304f',
+	SECONDARY_COLOR: '#002651',
+	BORDER_COLOR: '#dbdbdb',
+}

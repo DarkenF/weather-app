@@ -1,66 +1,60 @@
 import React, {FC} from 'react';
 import {NavigationContainer} from "@react-navigation/native";
-import {Weather} from "../components/Weather";
-import {WeatherList} from "../components/WeatherList";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {Routes} from "./contracts";
+import {HomeScreen} from "../screens/HomeScreen";
+import {DetailsScreen} from "../screens/DetailScreens";
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DrawerContent} from "../components/DrawerContent";
+import {Colors} from "../assets/styles";
+import {InverterChartsPage} from "../screens/DetailScreens/Invertor";
+import {SolarChartsPage} from "../screens/DetailScreens/Solar";
+import { WindChartsPage } from '../screens/DetailScreens/Wind';
 
 interface Props {
-  temp: number;
-  condition: string;
-  country: string;
-  longitude?: number;
-  latitude?: number;
 }
+const Drawer = createDrawerNavigator();
 
-export const Navigation: FC<Props> = ({temp, condition, country, longitude, latitude}) => {
+export const Navigation: FC<Props> = () => {
   return (
     <NavigationContainer>
-      <BottomTabNavigator temp={temp} condition={condition} country={country} longitude={longitude} latitude={latitude}/>
+      <Drawer.Navigator
+	      initialRouteName={Routes.HOME}
+	      screenOptions={{
+		      headerTintColor: Colors.PRIMARY_COLOR,
+		      headerTitleStyle: {
+						color: Colors.black,
+		      },
+		      drawerActiveTintColor: Colors.PRIMARY_COLOR,
+					drawerActiveBackgroundColor: '#ffeeee',
+        }}
+	      drawerContent={props => <DrawerContent {...props}/>}
+      >
+	      <Drawer.Screen name={Routes.HOME} component={HomeScreen} options={{
+					title: "Погода",
+	      }}/>
+	      <Drawer.Screen name={Routes.DETAIL} component={DetailsScreen} options={{
+		      title: "Подробные измерения"
+	      }}/>
+	      <Drawer.Screen name={Routes.SOLAR_CHARTS} component={SolarChartsPage} options={{
+		      title: "Климатическая станция",
+		      drawerItemStyle: {
+						display: "none"
+		      }
+	      }}/>
+	      <Drawer.Screen name={Routes.WIND_CHARTS} component={WindChartsPage} options={{
+		      title: "Ветряная станция",
+		      drawerItemStyle: {
+			      display: "none"
+		      }
+	      }}/>
+	      <Drawer.Screen name={Routes.INVERTER_CHARTS} component={InverterChartsPage} options={{
+		      title: "Инвертор солнечных панелей",
+		      drawerItemStyle: {
+			      display: "none"
+		      }
+	      }}/>
+      </Drawer.Navigator>
     </NavigationContainer>
   )
 }
 
-const BottomTab = createBottomTabNavigator<any>();
-
-const BottomTabNavigator: FC<any> = ({temp, condition, country, longitude, latitude}) => {
-
-  return (
-    <BottomTab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarIconStyle: {
-          display: "none"
-        },
-        tabBarLabelStyle: {
-          fontSize: 15,
-          alignItems: "center"
-        },
-        tabBarStyle: {
-            backgroundColor: 'transparent',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 0,
-        },
-      }}
-      initialRouteName="TabOne"
-    >
-      <BottomTab.Screen
-        name="TabOne"
-        component={Weather}
-        initialParams={{temp, condition, country}}
-        options={() => ({
-          title: 'Сегодня',
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={WeatherList}
-        initialParams={{longitude, latitude, condition}}
-        options={{
-          title: 'Прогноз на 5 дней',
-        }}
-      />
-    </BottomTab.Navigator>
-  );
-}

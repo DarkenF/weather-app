@@ -4,8 +4,8 @@ import {Weather as IWeather, WeatherForecast, WeatherForecastItem} from "../api/
 import {getWeatherForecastApi} from "../api/weather/weatherApi";
 import {RouteProp} from "@react-navigation/native";
 import {LinearGradient} from "expo-linear-gradient";
-import {weatherOptions} from "./Weather";
 import {WeatherItem} from "./WeatherItem";
+import {weatherOptions} from "../utils/getWeatherDescription";
 
 interface Props {
   route:  RouteProp<{ params: { longitude: number, latitude: number, condition: string } }, 'params'>

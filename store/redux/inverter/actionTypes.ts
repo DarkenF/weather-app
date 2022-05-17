@@ -1,0 +1,4 @@
+export enum InverterActionTypes {
+  SET_INVERTER_DATA= 'SET_INVERTER_DATA',
+  GET_INVERTER_DATA= 'GET_INVERTER_DATA',
+}
