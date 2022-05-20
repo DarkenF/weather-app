@@ -3,6 +3,7 @@ import {WindActionTypes} from "../redux/wind/actionTypes";
 import {getWeatherWindApi} from "../../api/weather/weatherApi";
 import {WindData} from "../redux/wind/contracts";
 import {setWindCurrentMeasurement, setWindMeasurement} from "../redux/wind/actionCreators";
+import {Alert} from "react-native";
 
 function* WindWorker() {
 	try {
@@ -13,7 +14,7 @@ function* WindWorker() {
 			yield put(setWindCurrentMeasurement())
 		}
 	} catch (error) {
-		// TODO: Можно добавить модалку с ошибкой
+		Alert.alert('Ошибка получения данных!')
 	}
 }
 

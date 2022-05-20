@@ -24,4 +24,12 @@ export interface SetDataInverterAction {
   }
 }
 
-export type InverterAction = SetDataInverterAction;
+export interface GetInverterDataAction {
+  type: InverterActionTypes.GET_INVERTER_DATA;
+}
+
+export interface GetInverterChartsMeasureAction {
+  type: InverterActionTypes.GET_INVERTER_CHARTS_MEASURE;
+}
+
+export type InverterAction = SetDataInverterAction | GetInverterDataAction | GetInverterChartsMeasureAction;

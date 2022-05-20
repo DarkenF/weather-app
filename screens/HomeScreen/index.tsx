@@ -9,6 +9,7 @@ import {Loading} from "../../components/Loading";
 import { ScrollView } from "react-native";
 import {getWindMeasurement} from "../../store/redux/wind/actionCreators";
 import {getWeatherDescription} from "../../utils/getWeatherDescription";
+import {getInverterMeasurement} from "../../store/redux/inverter/actionCreators";
 
 export const HomeScreen = () =>  {
 	const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export const HomeScreen = () =>  {
 	const currentWeather = useSelector((state: AppState) => state.solar.currentMeasurement)
 	const windMeasure = useSelector((state: AppState) => state.wind.currentMeasure)
 	const loading = useSelector((state: AppState) => state.solar.loading)
+	const inverterData = useSelector((state: AppState) => state.inverter.data)
+	const currentSolarPower = inverterData.length ? inverterData[inverterData.length - 1].pv1InputPower : 700;
 
 	const windSpeed = windMeasure?.ws1avg || 0;
 
@@ -24,6 +27,7 @@ export const HomeScreen = () =>  {
 		if (!currentWeather) {
 			dispatch(getSolarMeasurement())
 			dispatch(getWindMeasurement())
+			dispatch(getInverterMeasurement())
 		}
 		if (!loading) {
 			setRefreshing(false);
@@ -34,7 +38,7 @@ export const HomeScreen = () =>  {
 		return <Loading />
 	}
 
-	const weatherInfo = getWeatherDescription(currentWeather.date, currentWeather.precipitation, 700 )
+	const weatherInfo = getWeatherDescription(currentWeather.date, currentWeather.precipitation, currentSolarPower )
 
 	const onRefresh =() => {
 		setRefreshing(true)

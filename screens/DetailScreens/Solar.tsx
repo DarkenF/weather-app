@@ -1,17 +1,9 @@
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import {StyleSheet, ScrollView} from "react-native";
 import {BaseChart} from "../../components/BaseChart";
 import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../../store/redux/rootReducer";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getSolarChartMeasurement} from "../../store/redux/solar/actionCreators";
-
-
-interface Measurements {
-	temp: number[],
-	pressure: number[],
-	relativeHumidity: number[],
-	precipitation: number[],
-}
 
 export const SolarChartsPage = () => {
 	const dispatch = useDispatch();

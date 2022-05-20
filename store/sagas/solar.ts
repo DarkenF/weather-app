@@ -3,6 +3,7 @@ import {SolarActionTypes} from "../redux/solar/actionTypes";
 import {getWeatherSolarApi} from "../../api/weather/weatherApi";
 import {SolarData} from "../redux/solar/contracts";
 import {setSolarCurrentMeasurement, setSolarMeasurement} from "../redux/solar/actionCreators";
+import {Alert} from "react-native";
 
 function* SolarWorker() {
 	try {
@@ -14,7 +15,7 @@ function* SolarWorker() {
 		}
 
 	} catch (error) {
-		// TODO: Можно добавить модалку с ошибкой
+		Alert.alert('Ошибка получения данных!')
 	}
 }
 

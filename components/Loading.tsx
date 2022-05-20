@@ -10,7 +10,7 @@ export const Loading: FC<Props> = () => {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content"/>
 	    <ActivityIndicator size="large" />
-      <Text style={styles.text}>Получение погоды...</Text>
+      <Text style={styles.text}>Получение данных...</Text>
     </View>
   );
 };
